@@ -46,7 +46,7 @@ func (r *RabbitMQ) Destory() {
 //错误处理函数
 func (r *RabbitMQ) failOnErr(err error, message string) {
 	if err != nil {
-		log.Fatalf("%s:%s", message, err)
+		log.Printf("%s:%s", message, err)
 		panic(fmt.Sprintf("%s:%s", message, err))
 	}
 }

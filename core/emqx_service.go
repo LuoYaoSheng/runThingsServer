@@ -38,7 +38,7 @@ func EmqxApiPublish(emqxCfg *config.EmqxConf, params *EmqxParamsConf) {
 
 	req, err := http.NewRequest("POST", objUrl, strings.NewReader(data))
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		return
 	}
 
@@ -46,7 +46,7 @@ func EmqxApiPublish(emqxCfg *config.EmqxConf, params *EmqxParamsConf) {
 	req.SetBasicAuth(emqxCfg.User, emqxCfg.Pass)
 	_, err1 := http.DefaultClient.Do(req)
 	if err1 != nil {
-		log.Fatalln(err1)
+		log.Println(err1)
 		return
 	}
 }

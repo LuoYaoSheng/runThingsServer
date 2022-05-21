@@ -29,14 +29,14 @@ func GetClient(addr, username, password, database, precision string) client.Clie
 		createDbSQL := client.NewQuery(fmt.Sprintf("CREATE DATABASE %s", database), "", "")
 		if _, err1 := influxClient.Query(createDbSQL); err1 != nil {
 			influxClient = nil
-			log.Fatalln(err1)
+			log.Println(err1)
 			return nil
 		}
 		// 过期策略
 		createRPSQL := client.NewQuery(fmt.Sprintf("CREATE RETENTION POLICY default ON %s DURATION 360d REPLICATION 1 DEFAULT", database), database, precision)
 		if _, err2 := influxClient.Query(createRPSQL); err2 != nil {
 			influxClient = nil
-			log.Fatalln(err2)
+			log.Println(err2)
 			return nil
 		}
 	}
@@ -68,13 +68,13 @@ func writesPoints(cli client.Client, points []*client.Point, database, precision
 		Precision: precision, //精度，默认ns
 	})
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		return err
 	}
 	bp.AddPoints(points)
 	err = cli.Write(bp)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		return err
 	}
 	return nil
@@ -95,7 +95,7 @@ func WirteInflux(sn string, productKey string, status int64, fields map[string]i
 	// 生成节点
 	pt, err := client.NewPoint(prefix+tags["sn"], tags, fields, time.Now())
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		return "", err
 	}
 	points := []*client.Point{pt} // 后期会做批量处理，当前先保留数组模式
