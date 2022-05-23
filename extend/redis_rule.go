@@ -47,8 +47,6 @@ func RemoveRepByLoop(slc []model.Rule) []model.Rule {
 	for i := range slc {
 		flag := true
 		for j := range result {
-
-			log.Println(slc[i].Content)
 			var slcMap []model.RuleContent
 			err := json.Unmarshal([]byte(slc[i].Content), &slcMap)
 			if err != nil {
