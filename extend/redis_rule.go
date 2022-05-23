@@ -3,8 +3,8 @@ package extend
 import (
 	"encoding/json"
 	"github.com/LuoYaoSheng/runThingsConfig/model"
+	service "github.com/LuoYaoSheng/runThingsServer/core"
 	"log"
-	service "run-things-server/core"
 )
 
 // RuleFromRedis 获取设备告警规则
