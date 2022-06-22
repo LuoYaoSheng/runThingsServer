@@ -69,6 +69,7 @@ const (
 	GB18030 = string("GB18030")
 )
 
+// ConvertByte2String 字符转码
 func ConvertByte2String(byte []byte, charset string) string {
 	var str string
 	switch charset {
@@ -88,4 +89,28 @@ func DateBytes() []byte {
 	year, month, day := time.Now().Date()
 	hour, min, sec := time.Now().Clock()
 	return []byte{byte(sec), byte(min), byte(hour), byte(day), byte(month), byte(year)}
+}
+
+// BitsFromByte byte 转 bits
+func BitsFromByte(b byte) []byte {
+	bits := [...]byte{
+		(byte)((b >> 7) & 0x1),
+		(byte)((b >> 6) & 0x1),
+		(byte)((b >> 5) & 0x1),
+		(byte)((b >> 4) & 0x1),
+		(byte)((b >> 3) & 0x1),
+		(byte)((b >> 2) & 0x1),
+		(byte)((b >> 1) & 0x1),
+		(byte)((b >> 0) & 0x1),
+	}
+	return bits[:]
+}
+
+// Str2DEC 字符串转十进制
+func Str2DEC(s string) (num int) {
+	l := len(s)
+	for i := l - 1; i >= 0; i-- {
+		num += (int(s[l-i-1]) & 0xf) << uint8(i)
+	}
+	return
 }
