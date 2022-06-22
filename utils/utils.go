@@ -114,3 +114,14 @@ func Str2DEC(s string) (num int) {
 	}
 	return
 }
+
+// Reverse 数组倒序函数
+func Reverse(arr *[]string) {
+	var temp string
+	length := len(*arr)
+	for i := 0; i < length/2; i++ {
+		temp = (*arr)[i]
+		(*arr)[i] = (*arr)[length-1-i]
+		(*arr)[length-1-i] = temp
+	}
+}
