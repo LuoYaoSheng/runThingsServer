@@ -1,8 +1,8 @@
 package aepapi
 
 import (
-	aepsdkcore "iot/common/aepApis/core"
 	"net/http"
+	aepsdkcore "run-things-server/extend/aepApis/core"
 )
 
 //参数subId: 类型long, 参数不可以为空

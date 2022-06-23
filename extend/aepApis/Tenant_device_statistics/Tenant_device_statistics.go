@@ -1,8 +1,8 @@
 package aepapi
 
 import (
-	aepsdkcore "iot/common/aepApis/core"
 	"net/http"
+	aepsdkcore "run-things-server/extend/aepApis/core"
 )
 
 func QueryTenantDeviceCount(appKey string, appSecret string) (*http.Response, error) {

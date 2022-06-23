@@ -1,7 +1,7 @@
 package aepapi
 
 import (
-	aepsdkcore "iot/common/aepApis/core"
+	aepsdkcore "run-things-server/extend/aepApis/core"
 
 	"net/http"
 )
