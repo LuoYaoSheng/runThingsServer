@@ -1,8 +1,8 @@
 package aepapi
 
 import (
+	aepsdkcore "github.com/LuoYaoSheng/runThingsServer/extend/aepApis/core"
 	"net/http"
-	aepsdkcore "run-things-server/extend/aepApis/core"
 )
 
 // CreateCommand 下发指令

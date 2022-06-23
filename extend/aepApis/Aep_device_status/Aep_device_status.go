@@ -1,8 +1,8 @@
 package aepapi
 
 import (
+	aepsdkcore "github.com/LuoYaoSheng/runThingsServer/extend/aepApis/core"
 	"net/http"
-	aepsdkcore "run-things-server/extend/aepApis/core"
 )
 
 //参数body: 类型json, 参数不可以为空

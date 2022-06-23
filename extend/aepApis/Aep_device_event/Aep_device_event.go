@@ -1,7 +1,7 @@
 package aepapi
 
 import (
-	aepsdkcore "run-things-server/extend/aepApis/core"
+	aepsdkcore "github.com/LuoYaoSheng/runThingsServer/extend/aepApis/core"
 
 	"net/http"
 )
