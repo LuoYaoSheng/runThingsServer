@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/LuoYaoSheng/runThingsConfig/config"
+	aepapi "github.com/LuoYaoSheng/runThingsServer/extend/aepApis/Aep_device_command"
+	aepapi2 "github.com/LuoYaoSheng/runThingsServer/extend/aepApis/Aep_device_management"
 	"io/ioutil"
-	aepapi "run-things-server/extend/aepApis/Aep_device_command"
-	aepapi2 "run-things-server/extend/aepApis/Aep_device_management"
 
 	"strconv"
 )

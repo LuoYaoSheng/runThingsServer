@@ -3,7 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"run-things-server/extend/oneNet"
+	"github.com/LuoYaoSheng/runThingsServer/extend/oneNet"
 )
 
 type OneNetDeviceReq struct {
