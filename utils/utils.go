@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"log"
+	"reflect"
 	"strconv"
 	"time"
 )
@@ -124,4 +125,16 @@ func Reverse(arr *[]string) {
 		(*arr)[i] = (*arr)[length-1-i]
 		(*arr)[length-1-i] = temp
 	}
+}
+
+// Struct2Map 结构体转map
+func Struct2Map(obj interface{}) map[string]interface{} {
+	t := reflect.TypeOf(obj)
+	v := reflect.ValueOf(obj)
+
+	var data = make(map[string]interface{})
+	for i := 0; i < t.NumField(); i++ {
+		data[t.Field(i).Name] = v.Field(i).Interface()
+	}
+	return data
 }
