@@ -105,11 +105,21 @@ func WirteInflux(sn string, productKey string, status int64, fields map[string]i
 
 // SelectInflux sql是赛选条件，例：`LIMIT 10`
 func SelectInflux(sn, sql string, database, prefix string) (res []client.Result, err1 error) {
+	//if influxClient == nil {
+	//	return nil, errors.New("influxdb未初始化")
+	//}
+	//measure := prefix + sn
+	//qs := fmt.Sprintf("SELECT * FROM %s %s", measure, sql)
+	//return queryDB(influxClient, database, qs)
+	return SelectFieldsInflux(`*`, sn, sql, database, prefix)
+}
+
+// SelectFieldsInflux fields,例：`a,b` sql是赛选条件，例：`LIMIT 10`
+func SelectFieldsInflux(fields, sn, sql string, database, prefix string) (res []client.Result, err1 error) {
 	if influxClient == nil {
 		return nil, errors.New("influxdb未初始化")
 	}
 	measure := prefix + sn
-	qs := fmt.Sprintf("SELECT * FROM %s %s", measure, sql)
-	//qs := fmt.Sprintf("SELECT * FROM %s ", measure)
+	qs := fmt.Sprintf("SELECT %s FROM %s %s", fields, measure, sql)
 	return queryDB(influxClient, database, qs)
 }
