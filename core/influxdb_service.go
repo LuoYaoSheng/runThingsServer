@@ -86,9 +86,13 @@ func WirteInflux(sn string, productKey string, status int64, fields map[string]i
 		return "初始化失败", errors.New("influxdb未初始化")
 	}
 	// 生成 tags
+	tagStatus := `0`
+	if status > 0 {
+		tagStatus = strconv.FormatInt(status, 10)
+	}
 	tags := map[string]string{
 		"sn":         sn,
-		"status":     strconv.FormatInt(status, 10),
+		"status":     tagStatus,
 		"productKey": productKey,
 	}
 
