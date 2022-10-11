@@ -108,8 +108,15 @@ type AepListByDeviceIdsRespone struct {
 	Result []AepListByDeviceIdsItem `json:"result"`
 }
 
+type AepConf struct {
+	AppKey    string
+	AppSecret string
+	ProductId int64
+	MasterKey string
+}
+
 // AepCmd 指令下发
-func AepCmd(cfg *config.AepConf, sn string, parameter string, serviceIdentifier string, operator string) error {
+func AepCmd(cfg *AepConf, sn string, parameter string, serviceIdentifier string, operator string) error {
 
 	bodyContent := AepCmdBodyContent{
 		Params:            parameter,
@@ -141,7 +148,7 @@ func AepCmd(cfg *config.AepConf, sn string, parameter string, serviceIdentifier 
 }
 
 // AepCreate 增加设备：没有批量方法
-func AepCreate(cfg *config.AepConf, sn, imei, deviceName, operator string) (*AepRespone, error) {
+func AepCreate(cfg *AepConf, sn, imei, deviceName, operator string) (*AepRespone, error) {
 
 	createOther := AepCreateOther{
 		AutoObserver: 1,
@@ -181,7 +188,7 @@ func AepCreate(cfg *config.AepConf, sn, imei, deviceName, operator string) (*Aep
 }
 
 // AepDeviceList 批量获取设备信息
-func AepDeviceList(cfg *config.AepConf, pageNow, pageSize int64, searchValue string) (*AepRespone, error) {
+func AepDeviceList(cfg *AepConf, pageNow, pageSize int64, searchValue string) (*AepRespone, error) {
 
 	resp, err := aepapi2.QueryDeviceList(cfg.AppKey, cfg.AppSecret, cfg.MasterKey, strconv.FormatInt(cfg.ProductId, 10), searchValue, strconv.FormatInt(pageNow, 10), strconv.FormatInt(pageSize, 10))
 	if err != nil {
