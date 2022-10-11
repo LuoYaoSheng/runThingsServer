@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/LuoYaoSheng/runThingsConfig/config"
 	aepapi "github.com/LuoYaoSheng/runThingsServer/extend/aepApis/Aep_device_command"
 	aepapi2 "github.com/LuoYaoSheng/runThingsServer/extend/aepApis/Aep_device_management"
 	"io/ioutil"
@@ -208,7 +207,7 @@ func AepDeviceList(cfg *AepConf, pageNow, pageSize int64, searchValue string) (*
 	return &rsp, nil
 }
 
-func AepListByDeviceIds(cfg *config.AepConf, deviceIdList []string) (*AepListByDeviceIdsRespone, error) {
+func AepListByDeviceIds(cfg *AepConf, deviceIdList []string) (*AepListByDeviceIdsRespone, error) {
 
 	body := AepListByDeviceIdsBody{
 		ProductId:    cfg.ProductId,
