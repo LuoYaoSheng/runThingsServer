@@ -38,10 +38,10 @@ func GetMqttClient(broker_, username_, password_ string, defaultHandler mqtt.Mes
 	return mqttClient
 }
 
-func MqttSubscribe(broker_, username_, password_ string, topic_ []string, qos_ byte, defaultHandler mqtt.MessageHandler) error {
+func MqttSubscribe(broker_, username_, password_ string, topic_ []string, qos_ byte, defaultHandler mqtt.MessageHandler) (mqtt.Client, error) {
 
 	if GetMqttClient(broker_, username_, password_, defaultHandler) == nil {
-		return errors.New("mqtt连接失败")
+		return nil, errors.New("mqtt连接失败")
 	}
 
 	for _, s := range topic_ {
@@ -54,7 +54,7 @@ func MqttSubscribe(broker_, username_, password_ string, topic_ []string, qos_ b
 	//topic__ = fmt.Sprintf("%s", topic_)
 	//log.Fatalln("mqtt-topic:", topic)
 
-	return nil
+	return mqttClient, nil
 }
 
 func MqttSend(topic string, payload interface{}, qos_ byte) error {
@@ -71,7 +71,7 @@ var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 }
 
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
-	log.Println(`Mqtt Connected & topic:`, topic__)
+	log.Println(`Mqtt Connected & topic:`)
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
