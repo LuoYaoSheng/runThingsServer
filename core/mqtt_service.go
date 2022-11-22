@@ -38,17 +38,21 @@ func GetMqttClient(broker_, username_, password_ string, defaultHandler mqtt.Mes
 	return mqttClient
 }
 
-func MqttSubscribe(broker_, username_, password_, topic_ string, qos_ byte, defaultHandler mqtt.MessageHandler) error {
-
-	topic__ = fmt.Sprintf("%s", topic_)
-	//log.Fatalln("mqtt-topic:", topic)
+func MqttSubscribe(broker_, username_, password_ string, topic_ []string, qos_ byte, defaultHandler mqtt.MessageHandler) error {
 
 	if GetMqttClient(broker_, username_, password_, defaultHandler) == nil {
 		return errors.New("mqtt连接失败")
 	}
 
-	token := mqttClient.Subscribe(topic__, qos_, nil)
-	token.Wait()
+	for _, s := range topic_ {
+		topic___ := s
+		go func() {
+			token := mqttClient.Subscribe(topic___, qos_, nil)
+			token.Wait()
+		}()
+	}
+	//topic__ = fmt.Sprintf("%s", topic_)
+	//log.Fatalln("mqtt-topic:", topic)
 
 	return nil
 }
