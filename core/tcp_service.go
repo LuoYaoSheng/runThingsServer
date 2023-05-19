@@ -19,8 +19,8 @@ import (
 var SNConnMap map[string]*gtcp.Conn
 
 // TcpReplyFunc tcp回复函数
-type TcpReplyFunc func(conn *gtcp.Conn, data []byte)
-type TcpResolvingFunc func(ip, port string, data []byte)
+type TcpReplyFunc func(conn *gtcp.Conn, clientPort string,data []byte)
+type TcpResolvingFunc func(ip, clientPort string, data []byte)
 
 // TcpServer 因转发需要用到RabbitMQ，所以需先初始化RabbitMQ
 func TcpServer(tcpPort int, replyFunc TcpReplyFunc, resolvingFunc TcpResolvingFunc) {
