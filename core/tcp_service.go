@@ -16,7 +16,7 @@ import (
 	"github.com/gogf/gf/v2/net/gtcp"
 )
 
-var snConnMap map[string]*gtcp.Conn
+var SNConnMap map[string]*gtcp.Conn
 
 // TcpReplyFunc tcp回复函数
 type TcpReplyFunc func(conn *gtcp.Conn, data []byte)
@@ -29,7 +29,7 @@ func TcpServer(tcpPort int, replyFunc TcpReplyFunc, resolvingFunc TcpResolvingFu
 		panic("请先初始化RabbitMQ")
 	}
 
-	snConnMap = make(map[string]*gtcp.Conn)
+	SNConnMap = make(map[string]*gtcp.Conn)
 
 	go gtcp.NewServer(":"+strconv.Itoa(tcpPort), func(conn *gtcp.Conn) {
 		defer conn.Close()
@@ -98,54 +98,8 @@ func OfflineTcp(port string) {
 	go Rbmq.LogToMQ(sq)
 }
 
-// func TcpReply(conn *gtcp.Conn, data []byte) {
-
-// 	//sn := hex.EncodeToString(data[12:20])
-// 	//snConnMap[sn] = conn
-// 	// 得找到sn
-
-// 	if len(data) == 12 {
-// 		r, _ := hex.DecodeString("404000000000000000002323")
-// 		if err := conn.Send(r); err != nil {
-// 			fmt.Println(err)
-// 		}
-// 	} else {
-// 		if data[4] == 0x02 && data[5] == 0x03 {
-// 			//data2 := [30]byte{0x00}
-// 			var data2 []byte
-// 			data2 = make([]byte, 30)
-
-// 			for i := 0; i < 12; i++ {
-// 				data2[i] = data[i]
-// 			}
-// 			for i := 12; i < 18; i++ {
-// 				data2[i] = data[i+6]
-// 			}
-// 			for i := 18; i < 24; i++ {
-// 				data2[i] = data[i-6]
-// 			}
-// 			data2[24] = 0x00
-// 			data2[25] = 0x00
-// 			data2[26] = 0x03
-// 			data2[27] = 0x00
-// 			data2[28] = 0x23
-// 			data2[29] = 0x23
-
-// 			// 修复数据
-// 			//data2[2] = 0x00
-// 			data2[27] = byte(utils.CheckNum(data2[2:27]))
-// 			//fmt.Println("测验数据: ", hex.EncodeToString(data2))
-// 			//fmt.Printf("------ 数据：%x \n", data2[27])
-// 			fmt.Println("-------- 应答数据: ", hex.EncodeToString(data2))
-// 			if err := conn.Send(data2); err != nil {
-// 				fmt.Println("conn.Send err:", err)
-// 			}
-// 		}
-// 	}
-// }
-
 func TcpClientSend(sn string, data []byte) {
-	conn := snConnMap[sn]
+	conn := SNConnMap[sn]
 	err := conn.Send(data)
 	if err != nil {
 		fmt.Println("conn.Send err:", err)
