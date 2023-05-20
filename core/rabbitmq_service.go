@@ -22,8 +22,8 @@ type RabbitMQ struct {
 	Mqurl string
 }
 
-// 向外部提供方法 --- 临时写的，有用到才添加
-type recieveMsgFunc func(string)
+// MqRecieveMsgFunc 向外部提供方法 
+type MqRecieveMsgFunc func(string)
 
 // NewRabbitMQ 创建RabbitMQ结构体实例
 func NewRabbitMQ(queuename string, exchange string, key string, mqurl string) *RabbitMQ {
@@ -105,7 +105,7 @@ func (r *RabbitMQ) PublishPub(message string) {
 }
 
 // RecieveSub 订阅模式消费端代码
-func (r *RabbitMQ) RecieveSub(fc recieveMsgFunc) {
+func (r *RabbitMQ) RecieveSub(fc MqRecieveMsgFunc) {
 	//尝试创建交换机，不存在创建
 	err := r.channel.ExchangeDeclare(
 		//交换机名称
@@ -416,7 +416,7 @@ func (r *RabbitMQ) PublishSimple(message string) {
 }
 
 // ConsumeSimple 修改简单模式，其实支持外部函数调用
-func (r *RabbitMQ) ConsumeSimple(fc recieveMsgFunc) {
+func (r *RabbitMQ) ConsumeSimple(fc MqRecieveMsgFunc) {
 	//1、申请队列，如果队列存在就跳过，不存在创建
 	//优点：保证队列存在，消息能发送到队列中
 	_, err := r.channel.QueueDeclare(
