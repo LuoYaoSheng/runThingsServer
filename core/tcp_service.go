@@ -18,7 +18,7 @@ import (
 // TcpReplyFunc tcp回复函数
 type TcpReplyFunc func(conn *gtcp.Conn, clientPort string, data []byte)
 type TcpResolvingFunc func(ip, clientPort string, data []byte)
-type TcpOfflineFunc func(port string) (sq *model.Eq2MqLog)
+type TcpOfflineFunc func(port string)
 
 // TcpServer 因转发需要用到RabbitMQ，所以需先初始化RabbitMQ
 func TcpServer(tcpPort, debug int, replyFunc TcpReplyFunc, resolvingFunc TcpResolvingFunc, offlineFunc TcpOfflineFunc) {
@@ -55,16 +55,6 @@ func TcpServer(tcpPort, debug int, replyFunc TcpReplyFunc, resolvingFunc TcpReso
 			}
 		}
 	}).Run()
-}
-
-// TcpOnline_ 上线例子
-func TcpOnline_(port string, sn string) (sq *model.Eq2MqLog) {
-	return nil
-}
-
-// TcpOffline_ 离线例子
-func TcpOffline_(port string) (sq *model.Eq2MqLog) {
-	return nil
 }
 
 // TcpClientSend_ 发送例子
