@@ -10,7 +10,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 
 	"github.com/LuoYaoSheng/runThingsConfig/model"
-	service "github.com/LuoYaoSheng/runThingsServer/core"
 	"github.com/LuoYaoSheng/runThingsServer/utils"
 	"github.com/go-redis/redis/v8"
 	"github.com/gogf/gf/v2/net/gtcp"
@@ -60,46 +59,12 @@ func TcpServer(tcpPort, debug int, replyFunc TcpReplyFunc, resolvingFunc TcpReso
 
 // TcpOnline_ 上线例子
 func TcpOnline_(port string, sn string) (sq *model.Eq2MqLog) {
-
-	portKey := "tcp" + port
-
-	_, err := service.GetRdValue(portKey)
-	if err == redis.Nil {
-		// 存储设备 & 设备上线
-		err4 := service.SetRdValue(portKey, sn)
-		if err4 != nil {
-			g.Log().Error(bgContext, err4)
-			return
-		}
-		sq = &model.Eq2MqLog{
-			Sn:     sn,
-			Status: config.EqStatusOnline,
-			Title:  "设备上线",
-		}
-		//go RbmqSer.LogToMQ(sq)
-		return sq
-	} else if err != nil {
-		g.Log().Error(bgContext, err)
-	}
 	return nil
 }
 
 // TcpOffline_ 离线例子
 func TcpOffline_(port string) (sq *model.Eq2MqLog) {
-	portKey := "tcp" + port
-
-	sn, err := service.GetRdValue(portKey)
-	if err != nil {
-		g.Log().Error(bgContext, err)
-		return
-	}
-	sq = &model.Eq2MqLog{
-		Sn:     sn,
-		Status: config.EqStatusOnline,
-		Title:  "设备离线",
-	}
 	return nil
-	//go RbmqSer.LogToMQ(sq)
 }
 
 // TcpClientSend_ 发送例子
