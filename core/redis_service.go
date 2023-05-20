@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/go-redis/redis/v8"
+	"strconv"
 	"time"
 )
 
@@ -59,12 +60,12 @@ func DelRdValue(key string) (int64, error) {
 	return redisClient.Del(ctx, key).Result()
 }
 
-func SubscribeKeyExpired(fc RedisKeyExpiredFunc) error {
+func SubscribeKeyExpired(db int, fc RedisKeyExpiredFunc) error {
 	if redisClient == nil {
 		return errors.New("redis客户端连接失败")
 	}
 	go func() {
-		pubsub := redisClient.Subscribe(ctx, "__keyevent@0__:expired")
+		pubsub := redisClient.Subscribe(ctx, "__keyevent@"+strconv.Itoa(db)+"__:expired")
 		defer pubsub.Close()
 		for msg := range pubsub.Channel() {
 			fc(msg.Payload)
