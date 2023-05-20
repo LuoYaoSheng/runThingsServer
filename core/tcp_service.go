@@ -5,13 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/LuoYaoSheng/runThingsConfig/config"
-
-	"github.com/gogf/gf/v2/frame/g"
-
-	"github.com/LuoYaoSheng/runThingsConfig/model"
 	"github.com/LuoYaoSheng/runThingsServer/utils"
-	"github.com/go-redis/redis/v8"
 	"github.com/gogf/gf/v2/net/gtcp"
 )
 
