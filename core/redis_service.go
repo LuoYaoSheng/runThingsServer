@@ -52,11 +52,12 @@ func GetRdValue(key string) (string, error) {
 	}
 }
 
-func GetRdKeys(pattern string) ([]string, error) {
+func GetRdKeys(key string) ([]string, error) {
 	if redisClient == nil {
 		return nil, errors.New("redis客户端连接失败")
 	}
-	return redisClient.Keys(ctx, pattern).Result()
+
+	return redisClient.Do(ctx, "keys", "*"+key+"*").StringSlice()
 }
 
 func DelRdValue(key string) (int64, error) {
